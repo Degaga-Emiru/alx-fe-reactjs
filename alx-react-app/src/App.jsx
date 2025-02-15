@@ -4,7 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import WelcomeMessage from './WelcomeMessage'
 import Header from './components/Header'
-import Main from './components/(MainContent'
+import Main from './components/MainContent'
   import Footer from './components/Footer'
 
 function App() {
