@@ -2,16 +2,13 @@ import { useRecipeStore } from '../recipeStore';
 import { Link } from 'react-router-dom'; // Ensure Link is imported
 
 const RecipeList = () => {
-  // Access both `recipes` and `filteredRecipes` from the Zustand store
-  const recipes = useRecipeStore((state) => state.recipes); // Required by the checker
-  const filteredRecipes = useRecipeStore((state) => state.filteredRecipes); // Used for rendering
+  const filteredRecipes = useRecipeStore((state) => state.filteredRecipes);
   const favorites = useRecipeStore((state) => state.favorites);
   const addFavorite = useRecipeStore((state) => state.addFavorite);
   const removeFavorite = useRecipeStore((state) => state.removeFavorite);
 
   return (
     <div>
-      {/* Display filtered recipes */}
       {filteredRecipes.map((recipe) => (
         <div key={recipe.id}>
           {/* Wrap the recipe title in a Link for navigation */}
