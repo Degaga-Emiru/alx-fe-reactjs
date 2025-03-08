@@ -1,4 +1,4 @@
-// src/components/PostsComponent.js
+// src/components/PostsComponent.jsx
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 
@@ -11,11 +11,21 @@ const fetchPosts = async () => {
 };
 
 const PostsComponent = () => {
-  const { data, error, isLoading, isError, refetch } = useQuery(
+  const {
+    data,
+    error,
+    isLoading,
+    isError,
+    isFetching,
+    refetch,
+  } = useQuery(
     ["posts"], // Query key as an array
     fetchPosts,
     {
-      staleTime: 60000, // Cache data for 1 minute
+      cacheTime: 10000, // Cache data for 10 seconds
+      staleTime: 5000, // Data is considered fresh for 5 seconds
+      refetchOnWindowFocus: true, // Refetch data when the window is focused
+      keepPreviousData: true, // Keep previous data while fetching new data
     }
   );
 
@@ -29,7 +39,11 @@ const PostsComponent = () => {
 
   return (
     <div>
-      <button onClick={refetch}>Refresh Data</button>
+      <h2>Posts</h2>
+      <button onClick={refetch} disabled={isFetching}>
+        {isFetching ? "Refreshing..." : "Refresh Data"}
+      </button>
+      {isFetching && <p>Refreshing data...</p>}
       <ul>
         {data.map((post) => (
           <li key={post.id}>
