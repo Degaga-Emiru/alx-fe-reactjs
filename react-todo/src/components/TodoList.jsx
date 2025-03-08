@@ -28,10 +28,6 @@ const TodoList = () => {
     setTodos(todos.filter((todo) => todo.id !== id));
   };
 
-  const clearAllTodos = () => {
-    setTodos([]);
-  };
-
   const remainingTodos = todos.filter((todo) => !todo.completed).length;
 
   return (
@@ -64,8 +60,7 @@ const TodoList = () => {
       </ul>
       {todos.length > 0 && (
         <div>
-          <button onClick={clearAllTodos}>Clear All</button>
-          <p>{remainingTodos} todos remaining</p>
+          <p>{remainingTodos} {remainingTodos === 1 ? "todo" : "todos"} remaining</p>
         </div>
       )}
     </div>
