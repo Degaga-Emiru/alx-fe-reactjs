@@ -1,7 +1,6 @@
-// src/__tests__/TodoList.test.js
+import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import TodoList from "../components/TodoList";
-import "@testing-library/jest-dom";
 
 // eslint-disable-next-line no-undef
 describe("TodoList Component", () => {
@@ -11,55 +10,45 @@ describe("TodoList Component", () => {
     // eslint-disable-next-line no-undef
     expect(screen.getByText("Learn React")).toBeInTheDocument();
     // eslint-disable-next-line no-undef
-    expect(screen.getByText("Build a Todo App")).toBeInTheDocument();
+    expect(screen.getByText("Build a project")).toBeInTheDocument();
   });
 
   // eslint-disable-next-line no-undef
   test("adds a new todo", () => {
     render(<TodoList />);
-    const input = screen.getByPlaceholderText("Add a new todo");
-    const addButton = screen.getByText("Add");
+    const input = screen.getByTestId("todo-input");
+    const button = screen.getByText("Add");
 
-    fireEvent.change(input, { target: { value: "Test Todo" } });
-    fireEvent.click(addButton);
+    fireEvent.change(input, { target: { value: "New Task" } });
+    fireEvent.click(button);
 
     // eslint-disable-next-line no-undef
-    expect(screen.getByText("Test Todo")).toBeInTheDocument();
+    expect(screen.getByText("New Task")).toBeInTheDocument();
   });
 
   // eslint-disable-next-line no-undef
-  test("toggles a todo", () => {
+  test("toggles a todo's completion status", () => {
     render(<TodoList />);
-    const todoText = screen.getByText("Learn React");
+    const todoItem = screen.getByText("Learn React");
 
-    fireEvent.click(todoText);
+    fireEvent.click(todoItem);
     // eslint-disable-next-line no-undef
-    expect(todoText).toHaveStyle("text-decoration: line-through");
+    expect(todoItem).toHaveClass("completed");
 
-    fireEvent.click(todoText);
+    fireEvent.click(todoItem);
     // eslint-disable-next-line no-undef
-    expect(todoText).toHaveStyle("text-decoration: none");
+    expect(todoItem).not.toHaveClass("completed");
   });
 
   // eslint-disable-next-line no-undef
   test("deletes a todo", () => {
     render(<TodoList />);
-    const deleteButton = screen.getAllByText("Delete")[0];
+    const todoItem = screen.getByText("Learn React");
+    const deleteButton = todoItem.nextSibling;
 
     fireEvent.click(deleteButton);
-    // eslint-disable-next-line no-undef
-    expect(screen.queryByText("Learn React")).not.toBeInTheDocument();
-  });
 
-  // eslint-disable-next-line no-undef
-  test("displays the number of remaining todos", () => {
-    render(<TodoList />);
     // eslint-disable-next-line no-undef
-    expect(screen.getByText("2 todos remaining")).toBeInTheDocument();
-    
-    const todoText = screen.getByText("Learn React");
-    fireEvent.click(todoText);
-    // eslint-disable-next-line no-undef
-    expect(screen.getByText("1 todo remaining")).toBeInTheDocument();
+    expect(todoItem).not.toBeInTheDocument();
   });
 });

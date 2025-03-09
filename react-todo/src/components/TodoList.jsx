@@ -1,19 +1,15 @@
-// src/components/TodoList.jsx
 import React, { useState } from "react";
+import AddTodoForm from "./AddTodoForm";
+import "../styles.css";
 
 const TodoList = () => {
   const [todos, setTodos] = useState([
     { id: 1, text: "Learn React", completed: false },
-    { id: 2, text: "Build a Todo App", completed: false },
+    { id: 2, text: "Build a project", completed: false },
   ]);
-  const [newTodo, setNewTodo] = useState("");
 
-  const addTodo = (e) => {
-    e.preventDefault();
-    if (newTodo.trim() === "") return;
-    const todo = { id: Date.now(), text: newTodo, completed: false };
-    setTodos([...todos, todo]);
-    setNewTodo("");
+  const addTodo = (text) => {
+    setTodos([...todos, { id: Date.now(), text, completed: false }]);
   };
 
   const toggleTodo = (id) => {
@@ -28,41 +24,25 @@ const TodoList = () => {
     setTodos(todos.filter((todo) => todo.id !== id));
   };
 
-  const remainingTodos = todos.filter((todo) => !todo.completed).length;
-
   return (
-    <div>
-      <h1>Todo List</h1>
-      <form onSubmit={addTodo}>
-        <input
-          type="text"
-          value={newTodo}
-          onChange={(e) => setNewTodo(e.target.value)}
-          placeholder="Add a new todo"
-        />
-        <button type="submit">Add</button>
-      </form>
+    <div className="todo-container">
+      <h2>Todo List</h2>
+      <AddTodoForm addTodo={addTodo} />
       <ul>
         {todos.map((todo) => (
-          <li key={todo.id}>
-            <span
-              style={{
-                textDecoration: todo.completed ? "line-through" : "none",
-                cursor: "pointer",
-              }}
-              onClick={() => toggleTodo(todo.id)}
-            >
-              {todo.text}
-            </span>
-            <button onClick={() => deleteTodo(todo.id)}>Delete</button>
+          <li
+            key={todo.id}
+            onClick={() => toggleTodo(todo.id)}
+            className={todo.completed ? "completed" : ""}
+            data-testid="todo-item"
+          >
+            {todo.text}
+            <button onClick={(e) => { e.stopPropagation(); deleteTodo(todo.id); }}>
+              ❌
+            </button>
           </li>
         ))}
       </ul>
-      {todos.length > 0 && (
-        <div>
-          <p>{remainingTodos} {remainingTodos === 1 ? "todo" : "todos"} remaining</p>
-        </div>
-      )}
     </div>
   );
 };
