@@ -1,5 +1,4 @@
-// src/components/RegistrationForm.js
-import React, { useState } from "react";
+import { useState } from "react";
 
 const RegistrationForm = () => {
   const [formData, setFormData] = useState({
@@ -10,65 +9,44 @@ const RegistrationForm = () => {
 
   const [errors, setErrors] = useState({});
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+  const validate = () => {
+    let tempErrors = {};
+    if (!formData.username) tempErrors.username = "Username is required!";
+    if (!formData.email) tempErrors.email = "Email is required!";
+    if (!formData.password) tempErrors.password = "Password is required!";
+    setErrors(tempErrors);
+    return Object.keys(tempErrors).length === 0;
   };
 
-  const validateForm = () => {
-    const newErrors = {};
-    if (!formData.username) newErrors.username = "Username is required";
-    if (!formData.email) newErrors.email = "Email is required";
-    if (!formData.password) newErrors.password = "Password is required";
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (validateForm()) {
-      console.log("Form submitted:", formData);
+    if (validate()) {
+      console.log("Submitted Data:", formData);
       // Simulate API call
-      alert("Registration successful!");
-    } else {
-      console.log("Form has errors");
+      setTimeout(() => alert("User Registered Successfully!"), 500);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="registration-form">
+    <form onSubmit={handleSubmit} className="form-container">
       <div>
         <label>Username:</label>
-        <input
-          type="text"
-          name="username"
-          value={formData.username}
-          onChange={handleChange}
-        />
-        {errors.username && <span className="error">{errors.username}</span>}
+        <input type="text" name="username" value={formData.username} onChange={handleChange} />
+        {errors.username && <p className="error">{errors.username}</p>}
       </div>
       <div>
         <label>Email:</label>
-        <input
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-        />
-        {errors.email && <span className="error">{errors.email}</span>}
+        <input type="email" name="email" value={formData.email} onChange={handleChange} />
+        {errors.email && <p className="error">{errors.email}</p>}
       </div>
       <div>
         <label>Password:</label>
-        <input
-          type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-        />
-        {errors.password && <span className="error">{errors.password}</span>}
+        <input type="password" name="password" value={formData.password} onChange={handleChange} />
+        {errors.password && <p className="error">{errors.password}</p>}
       </div>
       <button type="submit">Register</button>
     </form>
