@@ -6,7 +6,7 @@ function UserProfile() {
       hover:shadow-xl transition-transform duration-300 ease-in-out">
       <img 
         src="src/img/degooo.jpg" 
-        alt="User" 
+        alt="User image" 
         className="w-24 h-24 sm:w-36 sm:h-36 rounded-full mx-auto hover:scale-110"
       />
       <h1 className="text-lg sm:text-xl text-blue-800 my-4 text-center hover:text-blue-500 ">Degaga Emiru</h1>
