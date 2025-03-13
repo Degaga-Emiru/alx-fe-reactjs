@@ -7,7 +7,7 @@ function UserProfile() {
       <img 
         src="src/img/degooo.jpg" 
         alt="User image" 
-        className="md:w-24 md:h-36 sm:w-24 sm:h-24 rounded-full mx-auto hover:scale-110 "
+        className="md:w-36 md:h-36 sm:w-24 sm:h-24 rounded-full mx-auto hover:scale-110 "
       />
       <h1 className="text-lg sm:text-xl text-blue-800 my-4 text-center hover:text-blue-500 md:text-xl ">Degaga Emiru</h1>
       <p className="text-sm sm:text-base text-gray-600 text-center hover:text-blue-500 md:text-xl">
