@@ -3,7 +3,7 @@ import React from 'react';
 function UserProfile() {
   return (
     <div className="bg-gray-100 sm:p-4 md:p-8 max-w-xs sm:max-w-sm mx-auto my-20 rounded-lg shadow-lg
-      hover:shadow-xl transition-transform duration-300 ease-in-out">
+      hover:shadow-xl transition-transform duration-300 ease-in-out md:max-w-sm">
       <img 
         src="src/img/degooo.jpg" 
         alt="User image" 
