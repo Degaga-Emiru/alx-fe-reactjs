@@ -13,6 +13,10 @@ function UserProfile() {
       <p className="text-sm sm:text-base text-gray-600 text-center hover:text-blue-500 md:text-xl">
         Developer at Example Co. Loves to write code and explore new technologies.
       </p>
+      <div className="bg-pink-500 p-4 sm:bg-green-500 md:bg-yellow-500 lg:bg-red-500 xl:bg-purple-500">
+  Resize the screen to see color changes!
+</div>
+
     </div>
   );
 }
