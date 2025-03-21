@@ -44,7 +44,7 @@ const AddRecipeForm = ({ onAddRecipe }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-100 to-white p-8">
+    <div className="min-h-screen bg-gradient-to-b from-blue-100 to-white p-8 md:p-12">
       <div className="max-w-2xl mx-auto bg-white rounded-xl shadow-lg p-8">
         <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">Add New Recipe</h2>
 
