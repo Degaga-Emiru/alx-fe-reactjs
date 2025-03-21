@@ -9,16 +9,25 @@ const AddRecipeForm = ({ onAddRecipe }) => {
   const [instructions, setInstructions] = useState('');
   const [steps, setSteps] = useState('');
   const [image, setImage] = useState('');
-  const [error, setError] = useState('');
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
+
+  const validate = () => {
+    const newErrors = {};
+    if (!title) newErrors.title = 'Title is required.';
+    if (!summary) newErrors.summary = 'Summary is required.';
+    if (!ingredients) newErrors.ingredients = 'Ingredients are required.';
+    if (!instructions) newErrors.instructions = 'Instructions are required.';
+    if (!steps) newErrors.steps = 'Steps are required.';
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!title || !summary || !ingredients || !instructions || !steps) {
-      setError('Please fill in all fields.');
-      return;
-    }
+    if (!validate()) return;
 
     const newRecipe = {
       id: data.length + 1,
@@ -31,7 +40,6 @@ const AddRecipeForm = ({ onAddRecipe }) => {
     };
 
     onAddRecipe(newRecipe);
-
     navigate('/');
   };
 
@@ -39,8 +47,6 @@ const AddRecipeForm = ({ onAddRecipe }) => {
     <div className="min-h-screen bg-gradient-to-b from-blue-100 to-white p-8">
       <div className="max-w-2xl mx-auto bg-white rounded-xl shadow-lg p-8">
         <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">Add New Recipe</h2>
-
-        {error && <div className="text-red-500 mb-4">{error}</div>}
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
@@ -51,6 +57,7 @@ const AddRecipeForm = ({ onAddRecipe }) => {
               onChange={(e) => setTitle(e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-300"
             />
+            {errors.title && <p className="text-red-500">{errors.title}</p>}
           </div>
 
           <div>
@@ -61,6 +68,7 @@ const AddRecipeForm = ({ onAddRecipe }) => {
               rows="2"
               className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-300"
             />
+            {errors.summary && <p className="text-red-500">{errors.summary}</p>}
           </div>
 
           <div>
@@ -71,6 +79,7 @@ const AddRecipeForm = ({ onAddRecipe }) => {
               rows="4"
               className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-300"
             />
+            {errors.ingredients && <p className="text-red-500">{errors.ingredients}</p>}
           </div>
 
           <div>
@@ -81,6 +90,7 @@ const AddRecipeForm = ({ onAddRecipe }) => {
               rows="6"
               className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-300"
             />
+            {errors.instructions && <p className="text-red-500">{errors.instructions}</p>}
           </div>
 
           <div>
@@ -91,6 +101,7 @@ const AddRecipeForm = ({ onAddRecipe }) => {
               rows="6"
               className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-300"
             />
+            {errors.steps && <p className="text-red-500">{errors.steps}</p>}
           </div>
 
           <div>
@@ -113,6 +124,4 @@ const AddRecipeForm = ({ onAddRecipe }) => {
       </div>
     </div>
   );
-};
-
-export default AddRecipeForm;
+};export default AddRecipeForm;
