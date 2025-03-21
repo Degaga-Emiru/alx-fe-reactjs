@@ -7,13 +7,15 @@ const AddRecipeForm = ({ onAddRecipe }) => {
   const [summary, setSummary] = useState('');
   const [ingredients, setIngredients] = useState('');
   const [instructions, setInstructions] = useState('');
+  const [steps, setSteps] = useState('');
   const [image, setImage] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!title || !summary || !ingredients || !instructions) {
+    if (!title || !summary || !ingredients || !instructions || !steps) {
       setError('Please fill in all fields.');
       return;
     }
@@ -24,6 +26,7 @@ const AddRecipeForm = ({ onAddRecipe }) => {
       summary,
       ingredients: ingredients.split('\n').filter(ingredient => ingredient.trim() !== ''),
       instructions: instructions.split('\n').filter(step => step.trim() !== ''),
+      steps: steps.split('\n').filter(step => step.trim() !== ''),
       image: image || '/assets/images/default.jpg'
     };
 
@@ -79,6 +82,17 @@ const AddRecipeForm = ({ onAddRecipe }) => {
               className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-300"
             />
           </div>
+
+          <div>
+            <label className="block text-gray-700 font-bold mb-2">Steps (Separate by new line)</label>
+            <textarea
+              value={steps}
+              onChange={(e) => setSteps(e.target.value)}
+              rows="6"
+              className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-300"
+            />
+          </div>
+
           <div>
             <label className="block text-gray-700 font-bold mb-2">Image URL (Optional)</label>
             <input
@@ -88,9 +102,12 @@ const AddRecipeForm = ({ onAddRecipe }) => {
               className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-300"
             />
           </div>
+
           <button
             type="submit"
-            className="w-full py-2 bg-blue-500 text-white font-bold rounded shadow hover:bg-blue-600 transition"  > Add Recipe
+            className="w-full py-2 bg-blue-500 text-white font-bold rounded shadow hover:bg-blue-600 transition"
+          >
+            Add Recipe
           </button>
         </form>
       </div>
