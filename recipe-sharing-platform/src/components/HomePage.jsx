@@ -10,7 +10,7 @@ const HomePage = ({ recipes }) => {
   }, [recipes]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-100 to-white p-8">
+    <div className="min-h-screen bg-gradient-to-b from-blue-100 to-white p-8 md:p-12">
       <h1 className="text-5xl font-bold text-center mb-12 text-gray-800 drop-shadow-xl">Recipe Sharing Platform</h1>
       
       <div className="flex justify-center mb-6">
